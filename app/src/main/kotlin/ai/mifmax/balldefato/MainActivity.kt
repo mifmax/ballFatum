@@ -6,11 +6,8 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
 import android.os.Vibrator
-import android.os.VibratorManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,10 +15,9 @@ import android.view.animation.AlphaAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import ai.mifmax.balldefato.databinding.ActivityMainBinding
+import ai.mifmax.balldefato.logic.AnswerPicker
+import ai.mifmax.balldefato.logic.ShakeDetector
 import ai.mifmax.constants.GlobalConstants
-import kotlin.math.pow
-import kotlin.math.sqrt
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
@@ -31,19 +27,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var sensor: Sensor? = null
 
-    private var lastX = 0f
-    private var lastY = 0f
-    private var lastZ = 0f
-    private var shakeCount = 0
+    private val shakeDetector = ShakeDetector()
+    private lateinit var answerPicker: AnswerPicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        vibrator = obtainVibrator()
+        vibrator = Vibrations.defaultVibrator(this)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        answerPicker = AnswerPicker(resources.getStringArray(R.array.responses).toList())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,7 +49,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.shake -> {
-                showMessage(getAnswer())
+                showMessage(answerPicker.pick())
                 true
             }
             R.id.preferences -> {
@@ -79,12 +74,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onPause()
     }
 
-    /** the magic code here */
-    private fun getAnswer(): String {
-        val responses = resources.getStringArray(R.array.responses)
-        return responses[Random.nextInt(responses.size)]
-    }
-
     private fun showMessage(message: String) {
         val view = binding.MessageTextView
         view.visibility = View.INVISIBLE
@@ -100,67 +89,21 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val millis = preferences
             .getString(getString(R.string.vibrate_time_id), GlobalConstants.VIBRATE_TIME)!!
             .toLong()
-        vibrate(millis)
+        Vibrations.oneShot(vibrator, millis)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_ACCELEROMETER &&
-            isShakeEnough(event.values[0], event.values[1], event.values[2])
-        ) {
-            showMessage(getAnswer())
-        }
-    }
-
-    private fun isShakeEnough(x: Float, y: Float, z: Float): Boolean {
-        var force = 0.0
-        force += ((x - lastX) / SensorManager.GRAVITY_EARTH).toDouble().pow(2.0)
-        force += ((y - lastY) / SensorManager.GRAVITY_EARTH).toDouble().pow(2.0)
-        force += ((z - lastZ) / SensorManager.GRAVITY_EARTH).toDouble().pow(2.0)
-        force = sqrt(force)
-
-        lastX = x
-        lastY = y
-        lastZ = z
-
+        if (event.sensor.type != Sensor.TYPE_ACCELEROMETER) return
         val threshold = preferences
             .getString(getString(R.string.threshold_id), GlobalConstants.THRESHOLD)!!
             .toFloat()
-        if (force > threshold) {
-            shakeCount++
-            val maxShakes = preferences
-                .getString(getString(R.string.shake_count_id), GlobalConstants.SHAKE_COUNT)!!
-                .toInt()
-            if (shakeCount > maxShakes) {
-                shakeCount = 0
-                lastX = 0f
-                lastY = 0f
-                lastZ = 0f
-                return true
-            }
-        }
-        return false
-    }
-
-    private fun obtainVibrator(): Vibrator =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val manager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            manager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
-
-    private fun vibrate(milliseconds: Long) {
-        if (milliseconds <= 0L) return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(
-                VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE),
-            )
-        } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(milliseconds)
+        val limit = preferences
+            .getString(getString(R.string.shake_count_id), GlobalConstants.SHAKE_COUNT)!!
+            .toInt()
+        if (shakeDetector.onSample(event.values[0], event.values[1], event.values[2], threshold, limit)) {
+            showMessage(answerPicker.pick())
         }
     }
 }
