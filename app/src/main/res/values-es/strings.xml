@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_shake_caption">Agitar</string>
+    <string name="shake_me_caption">Agítame</string>
+    <string name="eight_ball_description">Bola mágica</string>
+    <string name="instruction_caption">Pide un deseo que inquieta tu alma\ny agita la bola — el destino responderá…</string>
+
+    <string-array name="instructions">
+        <item>Pide un deseo que inquieta tu alma\ny agita la bola — el destino responderá…</item>
+        <item>Concéntrate en tu pregunta\ny agita la bola del destino…</item>
+        <item>Cierra los ojos, pregunta con el corazón\ny agita la bola del oráculo…</item>
+        <item>Pregunta lo que no te da paz\ny agita la bola — contempla la respuesta…</item>
+        <item>Susurra tu pregunta al universo\ny agita la bola del destino…</item>
+        <item>Piensa en el deseo que callas\ny agita la bola…</item>
+        <item>Deja entrar la pregunta en tu corazón\ny agita la bola — llega una profecía…</item>
+        <item>Concéntrate en lo oculto\ny agita la bola del oráculo…</item>
+        <item>Pregunta lo que arde en tu interior\ny agita la bola — el destino hablará…</item>
+        <item>Confía en el destino, formula tu pregunta\ny agita la bola de las profecías…</item>
+    </string-array>
+
+    <string-array name="responses">
+        <item>Según lo veo,\nsí</item>
+        <item>Es\ncierto</item>
+        <item>Definitiva-\nmente sí</item>
+        <item>Muy\nprobablemente</item>
+        <item>Buenas\nperspectivas</item>
+        <item>Las señales\napuntan a sí</item>
+        <item>Sin\nduda</item>
+        <item>Sí</item>
+        <item>Sí,\ndefinitivamente</item>
+        <item>Puedes\nconfiar en ello</item>
+        <item>Respuesta confusa,\ninténtalo de nuevo</item>
+        <item>Pregunta de\nnuevo más tarde</item>
+        <item>Mejor no\ndecírtelo ahora</item>
+        <item>No puedo\npredecirlo ahora</item>
+        <item>Concéntrate y\npregunta otra vez</item>
+        <item>No cuentes\ncon ello</item>
+        <item>Mi respuesta\nes no</item>
+        <item>Mis fuentes\ndicen que no</item>
+        <item>Perspectivas\nno tan buenas</item>
+        <item>Muy\ndudoso</item>
+    </string-array>
+</resources>

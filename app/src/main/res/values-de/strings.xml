@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_shake_caption">Schütteln</string>
+    <string name="shake_me_caption">Schüttel\nmich</string>
+    <string name="eight_ball_description">Magische Kugel</string>
+    <string name="instruction_caption">Stelle eine Frage, die deine Seele bewegt,\nund schüttle die Kugel — das Schicksal antwortet…</string>
+
+    <string-array name="instructions">
+        <item>Stelle eine Frage, die deine Seele bewegt,\nund schüttle die Kugel — das Schicksal antwortet…</item>
+        <item>Konzentriere dich auf deine Frage\nund schüttle die Kugel des Schicksals…</item>
+        <item>Schließ die Augen, frag mit dem Herzen,\nund schüttle die Kugel des Orakels…</item>
+        <item>Frag, was dir keine Ruhe lässt,\nund schüttle die Kugel — sieh die Antwort…</item>
+        <item>Flüstere deine Frage dem Universum zu\nund schüttle die Kugel des Schicksals…</item>
+        <item>Denk an den Wunsch, den du verschweigst,\nund schüttle die Kugel…</item>
+        <item>Lass die Frage in dein Herz\nund schüttle die Kugel — eine Prophezeiung naht…</item>
+        <item>Konzentriere dich auf das Verborgene\nund schüttle die Kugel des Orakels…</item>
+        <item>Frag, was in dir brennt,\nund schüttle die Kugel — das Schicksal spricht…</item>
+        <item>Vertraue dem Schicksal, stelle deine Frage\nund schüttle die Kugel der Prophezeiung…</item>
+    </string-array>
+
+    <string-array name="responses">
+        <item>Wie ich es\nsehe, ja</item>
+        <item>Es ist\nsicher</item>
+        <item>Es ist\neindeutig so</item>
+        <item>Höchst-\nwahrscheinlich</item>
+        <item>Aussichten\ngut</item>
+        <item>Zeichen deuten\nauf ja</item>
+        <item>Ohne\nZweifel</item>
+        <item>Ja</item>
+        <item>Ja,\ndefinitiv</item>
+        <item>Du kannst dich\ndarauf verlassen</item>
+        <item>Antwort unklar,\nversuch es erneut</item>
+        <item>Frag später\nnoch einmal</item>
+        <item>Sage ich dir\njetzt besser nicht</item>
+        <item>Kann es jetzt\nnicht vorhersagen</item>
+        <item>Konzentriere dich\nund frag erneut</item>
+        <item>Verlass dich\nnicht darauf</item>
+        <item>Meine Antwort\nist nein</item>
+        <item>Meine Quellen\nsagen nein</item>
+        <item>Aussichten\nnicht so gut</item>
+        <item>Sehr\nzweifelhaft</item>
+    </string-array>
+</resources>

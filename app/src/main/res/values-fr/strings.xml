@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_shake_caption">Secouer</string>
+    <string name="shake_me_caption">Secoue-\nmoi</string>
+    <string name="eight_ball_description">Boule magique</string>
+    <string name="instruction_caption">Formule un vœu qui trouble ton âme\net secoue la boule — le destin répondra…</string>
+
+    <string-array name="instructions">
+        <item>Formule un vœu qui trouble ton âme\net secoue la boule — le destin répondra…</item>
+        <item>Concentre-toi sur ta question\net secoue la boule du destin…</item>
+        <item>Ferme les yeux, demande avec le cœur\net secoue la boule de l\'oracle…</item>
+        <item>Demande ce qui te laisse sans repos\net secoue la boule — vois la réponse…</item>
+        <item>Murmure ta question à l\'univers\net secoue la boule du destin…</item>
+        <item>Pense au souhait que tu tais\net secoue la boule…</item>
+        <item>Laisse la question entrer dans ton cœur\net secoue la boule — une prophétie approche…</item>
+        <item>Concentre-toi sur ce qui est caché\net secoue la boule de l\'oracle…</item>
+        <item>Demande ce qui brûle en toi\net secoue la boule — le destin parlera…</item>
+        <item>Fais confiance au destin, formule ta question\net secoue la boule des prophéties…</item>
+    </string-array>
+
+    <string-array name="responses">
+        <item>À mon avis,\noui</item>
+        <item>C\'est\ncertain</item>
+        <item>C\'est\nvraiment le cas</item>
+        <item>Très\nprobablement</item>
+        <item>Perspectives\nfavorables</item>
+        <item>Les signes\nindiquent oui</item>
+        <item>Sans aucun\ndoute</item>
+        <item>Oui</item>
+        <item>Oui,\nabsolument</item>
+        <item>Tu peux\ncompter dessus</item>
+        <item>Réponse floue,\nréessaie</item>
+        <item>Redemande\nplus tard</item>
+        <item>Mieux vaut ne pas\nte le dire maintenant</item>
+        <item>Impossible de\nprédire maintenant</item>
+        <item>Concentre-toi\net redemande</item>
+        <item>N\'y compte\npas</item>
+        <item>Ma réponse\nest non</item>
+        <item>Mes sources\ndisent non</item>
+        <item>Perspectives\npeu favorables</item>
+        <item>Très\ndouteux</item>
+    </string-array>
+</resources>

@@ -36,6 +36,10 @@ android {
         viewBinding = true
     }
 
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
