@@ -13,7 +13,7 @@
         />
                 <EditTextPreference
             android:key="@string/threshold_id"
-            android:defaultValue="2.75f"
+            android:defaultValue="2.75"
             android:title="@string/threshold_title"
             android:summary="@string/threshold_summary"
             android:dialogTitle="@string/threshold_dialogTitle"

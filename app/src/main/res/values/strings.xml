@@ -23,7 +23,9 @@
     <string name="vibrate_time_title">Время вибрации</string>
     <string name="vibrate_time_summary">Опция задает время вибрации, которая оповещает вас об ответе</string>
     <string name="vibrate_time_dialogTitle">Установите время в миллисекундах</string>
-   
+
+    <string name="eight_ball_description">Магический шар</string>
+
         <string-array name="responses">
         <item>Я вижу это\nкак Да</item>
                 <item>Это\nфакт</item>
