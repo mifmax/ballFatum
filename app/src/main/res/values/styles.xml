@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application theme. Material3 with a top app bar (ActionBar) for the options menu. -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
+        <!-- Required by androidx.preference so PreferenceFragmentCompat can inflate. -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+</resources>
