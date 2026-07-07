@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager
 import ai.mifmax.balldefato.databinding.ActivityMainBinding
 import ai.mifmax.balldefato.logic.AnswerPicker
+import ai.mifmax.balldefato.logic.AnswerRepository
 import ai.mifmax.balldefato.logic.ShakeDetector
 import ai.mifmax.constants.GlobalConstants
 
@@ -40,7 +41,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         vibrator = Vibrations.defaultVibrator(this)
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        answerPicker = AnswerPicker(resources.getStringArray(R.array.responses).toList())
+        val language = resources.configuration.locales[0].language
+        answerPicker = AnswerPicker(AnswerRepository.load(this, language))
 
         // A different fortune-teller prompt each launch.
         binding.instruction.text =
