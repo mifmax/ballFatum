@@ -40,4 +40,26 @@
         <item>Perspectivas\nno tan buenas</item>
         <item>Muy\ndudoso</item>
     </string-array>
+
+    <string name="language_title">Idioma</string>
+    <string name="system_default">Predeterminado del sistema</string>
+
+    <string name="donate_title">Las estrellas susurran…</string>
+    <string name="donate_action">Apoyar</string>
+    <string name="donate_later">Más tarde</string>
+
+    <string-array name="donation_prompts">
+        <item>Las estrellas susurran: apoya a quien me invocó.</item>
+        <item>El oráculo vive de la bondad — ¿apoyas a su creador?</item>
+        <item>Un favor cósmico: ayuda a conservar la magia.</item>
+        <item>Los espíritus te guían hacia quien me creó.</item>
+        <item>El destino sonríe más a quien apoya a mi creador.</item>
+        <item>El universo insinúa: ¿un pequeño regalo para él?</item>
+        <item>Mis visiones son gratis — ¿una moneda para su guardián?</item>
+        <item>Las constelaciones piden bondad para mi creador.</item>
+        <item>La magia tiene un precio — apoya la mano que me formó.</item>
+        <item>El cielo favorece a los generosos — ¿ayudas al maestro?</item>
+        <item>El destino recuerda a quien apoya al soñador tras de mí.</item>
+        <item>La luna pide un obsequio para quien me construyó.</item>
+    </string-array>
 </resources>

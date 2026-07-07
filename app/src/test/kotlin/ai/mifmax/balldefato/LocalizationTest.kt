@@ -26,6 +26,8 @@ class LocalizationTest {
             val res = resFor(language)
             assertThat(res.getStringArray(R.array.responses)).hasLength(20)
             assertThat(res.getStringArray(R.array.instructions)).hasLength(10)
+            assertThat(res.getStringArray(R.array.donation_prompts)).hasLength(12)
+            assertThat(res.getString(R.string.system_default)).isNotEmpty()
             assertThat(res.getString(R.string.shake_me_caption)).isNotEmpty()
         }
     }

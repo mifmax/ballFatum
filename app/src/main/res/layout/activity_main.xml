@@ -84,4 +84,16 @@
             android:textStyle="italic" />
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/languageButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="8dp"
+        android:alpha="0.75"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/language_title"
+        android:src="@drawable/ic_language"
+        app:tint="#FFFFFF" />
+
 </FrameLayout>

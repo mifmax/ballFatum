@@ -7,4 +7,37 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <!-- Donation dialog: translucent dark "mystical" panel, light text, a bright Support button. -->
+    <style name="ThemeOverlay.BallDeFato.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/BallDeFato.Dialog.Style</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="colorPrimary">#B39DFF</item>
+        <item name="colorOnSurface">#EDEFFA</item>
+        <item name="colorOnSurfaceVariant">#D3D7EE</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="buttonBarPositiveButtonStyle">@style/BallDeFato.Dialog.PositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/BallDeFato.Dialog.NegativeButton</item>
+    </style>
+
+    <!-- The panel itself: dark, ~88% opaque, with generous insets so the dialog stays compact. -->
+    <style name="BallDeFato.Dialog.Style" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundTint">#E01A1533</item>
+        <item name="backgroundInsetStart">40dp</item>
+        <item name="backgroundInsetEnd">40dp</item>
+        <item name="backgroundInsetTop">96dp</item>
+        <item name="backgroundInsetBottom">96dp</item>
+    </style>
+
+    <!-- Emphasized filled Support button. -->
+    <style name="BallDeFato.Dialog.PositiveButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">#7C4DFF</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Muted "Later" text button. -->
+    <style name="BallDeFato.Dialog.NegativeButton" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textColor">#9AA0C0</item>
+    </style>
+
 </resources>

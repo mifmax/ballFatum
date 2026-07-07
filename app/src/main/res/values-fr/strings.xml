@@ -40,4 +40,26 @@
         <item>Perspectives\npeu favorables</item>
         <item>Très\ndouteux</item>
     </string-array>
+
+    <string name="language_title">Langue</string>
+    <string name="system_default">Langue du système</string>
+
+    <string name="donate_title">Les étoiles murmurent…</string>
+    <string name="donate_action">Soutenir</string>
+    <string name="donate_later">Plus tard</string>
+
+    <string-array name="donation_prompts">
+        <item>Les étoiles murmurent : soutiens celui qui m\'a invoqué.</item>
+        <item>L\'oracle vit de bonté — soutiens-tu son créateur ?</item>
+        <item>Une faveur cosmique : aide à préserver la magie.</item>
+        <item>Les esprits te guident vers celui qui m\'a créé.</item>
+        <item>Le destin sourit plus à qui soutient mon créateur.</item>
+        <item>L\'univers suggère : un petit cadeau pour lui ?</item>
+        <item>Mes visions sont gratuites — une pièce pour son gardien ?</item>
+        <item>Les constellations demandent de la bonté pour mon créateur.</item>
+        <item>La magie a un prix — soutiens la main qui m\'a façonné.</item>
+        <item>Le ciel favorise les généreux — aides-tu le maître ?</item>
+        <item>Le destin se souvient de qui soutient le rêveur derrière moi.</item>
+        <item>La lune demande un présent pour celui qui m\'a bâti.</item>
+    </string-array>
 </resources>

@@ -61,4 +61,26 @@
         <item>Outlook\nnot so good</item>
         <item>Very\ndoubtful</item>
     </string-array>
+
+    <string name="language_title">Language</string>
+    <string name="system_default">System default</string>
+
+    <string name="donate_title">The stars whisper…</string>
+    <string name="donate_action">Support</string>
+    <string name="donate_later">Later</string>
+
+    <string-array name="donation_prompts">
+        <item>The stars whisper: support the one who conjured me.</item>
+        <item>The oracle thrives on kindness — support its maker?</item>
+        <item>A cosmic favor: help the creator keep the magic alive.</item>
+        <item>The spirits nudge you toward the one who made me.</item>
+        <item>Fate smiles wider on those who support my creator.</item>
+        <item>The universe hints: a small gift for my maker?</item>
+        <item>My visions flow freely — perhaps a coin for their keeper?</item>
+        <item>The constellations ask a kindness for my creator.</item>
+        <item>Magic has a price — support the hand that shaped me.</item>
+        <item>The heavens favor generous souls — aid my maker?</item>
+        <item>Destiny remembers those who support the dreamer behind me.</item>
+        <item>The moon requests a token for the one who built me.</item>
+    </string-array>
 </resources>

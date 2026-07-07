@@ -7,19 +7,25 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.net.Uri
 import android.os.SystemClock
 import android.os.Vibrator
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager
 import ai.mifmax.balldefato.databinding.ActivityMainBinding
 import ai.mifmax.balldefato.logic.AnswerPicker
 import ai.mifmax.balldefato.logic.AnswerRepository
+import ai.mifmax.balldefato.logic.DonationPromptPolicy
+import ai.mifmax.balldefato.logic.LanguageOptions
 import ai.mifmax.balldefato.logic.ShakeDetector
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ai.mifmax.constants.GlobalConstants
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -31,6 +37,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     private var sensor: Sensor? = null
 
     private val shakeDetector = ShakeDetector()
+    private val donationPolicy = DonationPromptPolicy()
+    private var shakeCount = 0
     private lateinit var answerPicker: AnswerPicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,14 +56,20 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         binding.instruction.text =
             AnswerPicker(resources.getStringArray(R.array.instructions).toList()).pick()
 
-        // Keep the title clear of the status bar (edge-to-edge on Android 15+).
-        ViewCompat.setOnApplyWindowInsetsListener(binding.topBar) { view, insets ->
+        // Keep the title and the language button clear of the status bar (edge-to-edge).
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
-            (view.layoutParams as FrameLayout.LayoutParams).topMargin =
-                top + (16 * resources.displayMetrics.density).toInt()
-            view.requestLayout()
+            val density = resources.displayMetrics.density
+            (binding.topBar.layoutParams as FrameLayout.LayoutParams).topMargin =
+                top + (16 * density).toInt()
+            (binding.languageButton.layoutParams as FrameLayout.LayoutParams).topMargin =
+                top + (8 * density).toInt()
+            binding.topBar.requestLayout()
+            binding.languageButton.requestLayout()
             insets
         }
+
+        binding.languageButton.setOnClickListener { showLanguageDialog() }
 
         // Settings are hidden: reach the debug tunables with a long-press on the ball.
         binding.ball.setOnLongClickListener {
@@ -98,6 +112,44 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+    private fun showDonationDialog() {
+        val prompts = resources.getStringArray(R.array.donation_prompts).toList()
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_BallDeFato_Dialog)
+            .setTitle(R.string.donate_title)
+            .setMessage(AnswerPicker(prompts).pick())
+            .setPositiveButton(R.string.donate_action) { _, _ -> openDonation() }
+            .setNegativeButton(R.string.donate_later, null)
+            .show()
+    }
+
+    private fun showLanguageDialog() {
+        val labels = (listOf(getString(R.string.system_default)) + LanguageOptions.ENDONYMS)
+            .toTypedArray()
+        val currentTag = AppCompatDelegate.getApplicationLocales().toLanguageTags().ifEmpty { null }
+        val checked = LanguageOptions.indexForCurrent(currentTag)
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_BallDeFato_Dialog)
+            .setTitle(R.string.language_title)
+            .setSingleChoiceItems(labels, checked) { dialog, which ->
+                val tag = LanguageOptions.tagForIndex(which)
+                val locales = if (tag == null) {
+                    LocaleListCompat.getEmptyLocaleList()
+                } else {
+                    LocaleListCompat.forLanguageTags(tag)
+                }
+                AppCompatDelegate.setApplicationLocales(locales)
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun openDonation() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(DonationConfig.URL)))
+        } catch (e: android.content.ActivityNotFoundException) {
+            // No browser available — silently ignore.
+        }
+    }
+
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
 
     override fun onSensorChanged(event: SensorEvent) {
@@ -114,6 +166,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         )
         if (triggered) {
             showMessage(answerPicker.pick(), vibrate = true)
+            shakeCount++
+            if (donationPolicy.shouldPrompt(shakeCount)) showDonationDialog()
         }
     }
 }

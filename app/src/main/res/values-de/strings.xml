@@ -40,4 +40,26 @@
         <item>Aussichten\nnicht so gut</item>
         <item>Sehr\nzweifelhaft</item>
     </string-array>
+
+    <string name="language_title">Sprache</string>
+    <string name="system_default">Systemstandard</string>
+
+    <string name="donate_title">Die Sterne flüstern…</string>
+    <string name="donate_action">Unterstützen</string>
+    <string name="donate_later">Später</string>
+
+    <string-array name="donation_prompts">
+        <item>Die Sterne flüstern: unterstütze den, der mich rief.</item>
+        <item>Das Orakel lebt von Güte — den Schöpfer unterstützen?</item>
+        <item>Ein kosmischer Gefallen: hilf, die Magie zu bewahren.</item>
+        <item>Die Geister weisen dich zu dem, der mich erschuf.</item>
+        <item>Das Schicksal lächelt milder, wer meinen Schöpfer stützt.</item>
+        <item>Das Universum deutet an: ein kleines Geschenk für ihn?</item>
+        <item>Meine Visionen sind frei — eine Münze für den Hüter?</item>
+        <item>Die Sternbilder erbitten Güte für meinen Schöpfer.</item>
+        <item>Magie hat ihren Preis — stütze die Hand, die mich formte.</item>
+        <item>Der Himmel begünstigt Großzügige — hilfst du dem Meister?</item>
+        <item>Das Schicksal denkt an die, die den Träumer stützen.</item>
+        <item>Der Mond erbittet eine Gabe für den, der mich baute.</item>
+    </string-array>
 </resources>
