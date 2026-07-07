@@ -1,13 +1,26 @@
 package ai.mifmax.balldefato
 
 import android.content.Context
+import android.media.AudioAttributes
 import android.os.Build
+import android.os.VibrationAttributes
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 
-/** Version-correct vibration: VibratorManager on API 31+, VibrationEffect on API 26+. */
+/**
+ * Version-correct vibration for the deliberate "here is your answer" buzz.
+ *
+ * The buzz is tagged as PHYSICAL_EMULATION (a game/toy rumble). On devices where the user has
+ * turned off touch/alarm/notification vibration, that channel is typically still enabled, so the
+ * buzz plays instead of being dropped as `ignored_for_settings`.
+ */
 object Vibrations {
+
+    private val alarmAudioAttributes: AudioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_ALARM)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+        .build()
 
     fun defaultVibrator(context: Context): Vibrator =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -20,11 +33,26 @@ object Vibrations {
 
     fun oneShot(vibrator: Vibrator, millis: Long) {
         if (millis <= 0L) return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE))
+        val effect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE)
         } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(millis)
+            null
+        }
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> {
+                val attributes = VibrationAttributes.Builder()
+                    .setUsage(VibrationAttributes.USAGE_PHYSICAL_EMULATION)
+                    .build()
+                vibrator.vibrate(effect!!, attributes)
+            }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(effect!!, alarmAudioAttributes)
+            }
+            else -> {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(millis)
+            }
         }
     }
 }

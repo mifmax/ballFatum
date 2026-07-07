@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,10 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/ball"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         android:contentDescription="@string/eight_ball_description"
         android:src="@drawable/eight_ball" />
@@ -20,16 +22,66 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <!--
+            Fixed-size triangle "window": the prediction auto-shrinks (uniform autosize) so any
+            answer always fits inside. Pale glowing blue for a mystical prediction look.
+        -->
         <TextView
             android:id="@+id/MessageTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="142dp"
             android:layout_gravity="center"
             android:layout_marginTop="14dp"
             android:background="@drawable/triangle"
             android:focusable="false"
-            android:gravity="center_vertical|center"
-            android:text="@string/shake_me_caption" />
+            android:gravity="center"
+            android:maxLines="4"
+            android:paddingLeft="20dp"
+            android:paddingTop="16dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="34dp"
+            android:text="@string/shake_me_caption"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeMinTextSize="8sp"
+            app:autoSizeStepGranularity="1sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@+id/titleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_pill"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/instruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:shadowColor="#000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="8"
+            android:text="@string/instruction_caption"
+            android:textColor="#F0F0FA"
+            android:textSize="15sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
 </FrameLayout>

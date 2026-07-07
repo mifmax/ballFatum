@@ -7,12 +7,14 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.SystemClock
 import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager
 import ai.mifmax.balldefato.databinding.ActivityMainBinding
 import ai.mifmax.balldefato.logic.AnswerPicker
@@ -39,24 +41,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         answerPicker = AnswerPicker(resources.getStringArray(R.array.responses).toList())
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.activity_main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+        // A different fortune-teller prompt each launch.
+        binding.instruction.text =
+            AnswerPicker(resources.getStringArray(R.array.instructions).toList()).pick()
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.shake -> {
-                showMessage(answerPicker.pick())
-                true
-            }
-            R.id.preferences -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        // Keep the title clear of the status bar (edge-to-edge on Android 15+).
+        ViewCompat.setOnApplyWindowInsetsListener(binding.topBar) { view, insets ->
+            val top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top
+            (view.layoutParams as FrameLayout.LayoutParams).topMargin =
+                top + (16 * resources.displayMetrics.density).toInt()
+            view.requestLayout()
+            insets
+        }
+
+        // Settings are hidden: reach the debug tunables with a long-press on the ball.
+        binding.ball.setOnLongClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
         }
     }
 
@@ -74,22 +76,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onPause()
     }
 
-    private fun showMessage(message: String) {
+    private fun showMessage(message: String, vibrate: Boolean = false) {
         val view = binding.MessageTextView
-        view.visibility = View.INVISIBLE
         view.text = message
+        // Stay blank for START_OFFSET (fillBefore keeps alpha 0), then fade in slowly — a
+        // prediction gradually surfacing.
+        view.startAnimation(
+            AlphaAnimation(0f, 1f).apply {
+                startOffset = GlobalConstants.START_OFFSET
+                duration = GlobalConstants.FADE_DURATION
+            },
+        )
 
-        val animation = AlphaAnimation(0f, 1f).apply {
-            startOffset = GlobalConstants.START_OFFSET
-            duration = GlobalConstants.FADE_DURATION
+        if (vibrate) {
+            val millis = preferences
+                .getString(getString(R.string.vibrate_time_id), GlobalConstants.VIBRATE_TIME)!!
+                .toLong()
+            Vibrations.oneShot(vibrator, millis)
         }
-        view.visibility = View.VISIBLE
-        view.startAnimation(animation)
-
-        val millis = preferences
-            .getString(getString(R.string.vibrate_time_id), GlobalConstants.VIBRATE_TIME)!!
-            .toLong()
-        Vibrations.oneShot(vibrator, millis)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
@@ -102,8 +106,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val limit = preferences
             .getString(getString(R.string.shake_count_id), GlobalConstants.SHAKE_COUNT)!!
             .toInt()
-        if (shakeDetector.onSample(event.values[0], event.values[1], event.values[2], threshold, limit)) {
-            showMessage(answerPicker.pick())
+        val triggered = shakeDetector.onSample(
+            event.values[0], event.values[1], event.values[2],
+            threshold, limit, SystemClock.uptimeMillis(),
+        )
+        if (triggered) {
+            showMessage(answerPicker.pick(), vibrate = true)
         }
     }
 }

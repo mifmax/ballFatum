@@ -19,7 +19,7 @@ class SettingsActivityTest {
         shadowOf(Looper.getMainLooper()).idle()
 
         val fragment = activity.supportFragmentManager
-            .findFragmentById(android.R.id.content) as PreferenceFragmentCompat
+            .findFragmentById(R.id.settings_container) as PreferenceFragmentCompat
 
         assertThat(fragment.findPreference<Preference>("shakeCount")).isNotNull()
         assertThat(fragment.findPreference<Preference>("threshold")).isNotNull()

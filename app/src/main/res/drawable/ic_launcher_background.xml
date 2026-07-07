@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mystical dark gradient behind the ball. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="45"
+        android:startColor="#2A1E5C"
+        android:centerColor="#1B2350"
+        android:endColor="#0E1330"
+        android:type="linear" />
+</shape>

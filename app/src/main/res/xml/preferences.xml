@@ -13,7 +13,7 @@
         />
                 <EditTextPreference
             android:key="@string/threshold_id"
-            android:defaultValue="2.75"
+            android:defaultValue="0.85"
             android:title="@string/threshold_title"
             android:summary="@string/threshold_summary"
             android:dialogTitle="@string/threshold_dialogTitle"
@@ -23,13 +23,13 @@
         />
                 <EditTextPreference
             android:key="@string/vibrate_time_id"
-            android:defaultValue="250"
+            android:defaultValue="1500"
             android:title="@string/vibrate_time_title"
             android:summary="@string/vibrate_time_summary"
             android:dialogTitle="@string/vibrate_time_dialogTitle"
             android:inputType="number"
             android:numeric="integer"
-            android:maxLength="3"
+            android:maxLength="4"
         />
         </PreferenceCategory>
 </PreferenceScreen>

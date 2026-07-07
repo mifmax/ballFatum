@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 
+/**
+ * Hidden "debug" screen with the shake/vibration tunables. Not reachable from any menu —
+ * opened via a long-press on the ball (see [MainActivity]).
+ */
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(android.R.id.content, SettingsFragment())
+                .replace(R.id.settings_container, SettingsFragment())
                 .commit()
         }
     }

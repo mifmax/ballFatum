@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(/usr/libexec/java_home -v 17)",
-      "Bash(JAVA_HOME=$\\(/usr/libexec/java_home -v 17\\) ./gradlew testDebugUnitTest --tests \"ai.mifmax.balldefato.logic.ShakeDetectorTest\" --no-daemon)"
+      "Bash(JAVA_HOME=$\\(/usr/libexec/java_home -v 17\\) ./gradlew testDebugUnitTest --tests \"ai.mifmax.balldefato.logic.ShakeDetectorTest\" --no-daemon)",
+      "Bash(JAVA_HOME=$\\(/usr/libexec/java_home -v 17\\) ./gradlew testDebugUnitTest assembleDebug --no-daemon)",
+      "Bash(awk '{s+=$1} END{print \"tests:\",s}')",
+      "Bash(awk '{s+=$1} END{print \"fail+err:\",s}')"
     ]
   }
 }
