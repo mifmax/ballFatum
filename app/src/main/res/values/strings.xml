@@ -62,6 +62,11 @@
         <item>Very\ndoubtful</item>
     </string-array>
 
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
     <string name="language_title">Language</string>
     <string name="system_default">System default</string>
 

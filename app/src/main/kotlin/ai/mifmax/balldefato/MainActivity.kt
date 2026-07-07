@@ -25,6 +25,8 @@ import ai.mifmax.balldefato.logic.AnswerRepository
 import ai.mifmax.balldefato.logic.DonationPromptPolicy
 import ai.mifmax.balldefato.logic.LanguageOptions
 import ai.mifmax.balldefato.logic.ShakeDetector
+import ai.mifmax.balldefato.logic.ThemeOptions
+import ai.mifmax.balldefato.logic.ThemePrefs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ai.mifmax.constants.GlobalConstants
 
@@ -62,14 +64,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             val density = resources.displayMetrics.density
             (binding.topBar.layoutParams as FrameLayout.LayoutParams).topMargin =
                 top + (16 * density).toInt()
-            (binding.languageButton.layoutParams as FrameLayout.LayoutParams).topMargin =
-                top + (8 * density).toInt()
+            (binding.topActions.layoutParams as FrameLayout.LayoutParams).topMargin =
+                top + (4 * density).toInt()
             binding.topBar.requestLayout()
-            binding.languageButton.requestLayout()
+            binding.topActions.requestLayout()
             insets
         }
 
         binding.languageButton.setOnClickListener { showLanguageDialog() }
+        binding.themeButton.setOnClickListener { showThemeDialog() }
 
         // Settings are hidden: reach the debug tunables with a long-press on the ball.
         binding.ball.setOnLongClickListener {
@@ -119,6 +122,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             .setMessage(AnswerPicker(prompts).pick())
             .setPositiveButton(R.string.donate_action) { _, _ -> openDonation() }
             .setNegativeButton(R.string.donate_later, null)
+            .show()
+    }
+
+    private fun showThemeDialog() {
+        val labels = arrayOf(
+            getString(R.string.theme_system),
+            getString(R.string.theme_light),
+            getString(R.string.theme_dark),
+        )
+        val checked = ThemeOptions.indexForMode(ThemePrefs.load(this))
+        MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_BallDeFato_Dialog)
+            .setTitle(R.string.theme_title)
+            .setSingleChoiceItems(labels, checked) { dialog, which ->
+                val mode = ThemeOptions.modeForIndex(which)
+                ThemePrefs.save(this, mode)
+                AppCompatDelegate.setDefaultNightMode(mode)
+                dialog.dismiss()
+            }
             .show()
     }
 

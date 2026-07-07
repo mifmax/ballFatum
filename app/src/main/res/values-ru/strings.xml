@@ -41,6 +41,11 @@
         <item>Думаю,\nне стоит</item>
     </string-array>
 
+    <string name="theme_title">Тема</string>
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+
     <string name="language_title">Язык</string>
     <string name="system_default">Системный</string>
 

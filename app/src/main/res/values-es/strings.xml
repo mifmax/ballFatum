@@ -41,6 +41,11 @@
         <item>Muy\ndudoso</item>
     </string-array>
 
+    <string name="theme_title">Tema</string>
+    <string name="theme_system">Sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+
     <string name="language_title">Idioma</string>
     <string name="system_default">Predeterminado del sistema</string>
 

@@ -41,6 +41,11 @@
         <item>Sehr\nzweifelhaft</item>
     </string-array>
 
+    <string name="theme_title">Design</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+
     <string name="language_title">Sprache</string>
     <string name="system_default">Systemstandard</string>
 
